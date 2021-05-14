@@ -17,15 +17,39 @@ namespace Phonebook
         }
         public void Remove(Caller removedCaller)
         {
-            for (int i = 0; i < callers.Count; i++)
-            {
-                if (callers[i].Equals(removedCaller))
-                {
-                    callers.RemoveAt(i);
+            int removedIndex = GetCallerIndex(removedCaller);
 
-                    break;
-                }
+            RemoveAt(removedIndex);
+        }
+        public void RemoveAt(int removedIndex)
+        {
+            if (removedIndex > 0 && removedIndex < callers.Count)
+            {
+                callers.RemoveAt(removedIndex);
             }
         }
+        public Caller ReadAt(int index)
+        {
+            return callers[index];
+        }
+        public int GetCallerIndex(Caller searchedCaller)
+        {
+            for (int i = 0; i < callers.Count; i++)
+            {
+                if (callers[i].Equals(searchedCaller))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+        public void Clear()
+        {
+            callers.RemoveAll();
+        }
+
+
+        public int Count => callers.Count;
     }
 }
