@@ -19,7 +19,7 @@ namespace Phonebook
 
         public bool IsLess(Record record)
         {
-            return (this.record.Name.CompareTo(record.Name) < 0 && this.record.PhoneNumber < record.PhoneNumber);
+            return (this.record.Name.CompareTo(record.Name) < 0/* && this.record.PhoneNumber.CompareTo(record.PhoneNumber) < 0*/);
         }
         public bool Equals(Record record)
         {

@@ -9,24 +9,13 @@ namespace Phonebook
 {
     class Control
     {
-        private const string DEFAULT_FILE_PATH = ".\\callerList.txt";
-        private const string COLUMN_SEPARATOR = "    ";
-
-
         private CallerList callerList = new CallerList();
-        private FileStream fileStream;
+        private SaveLoadFileStream fileStream = new SaveLoadFileStream();
 
 
         public Control()
         {
-            if (File.Exists(DEFAULT_FILE_PATH))
-            {
-                fileStream = File.Open(DEFAULT_FILE_PATH, FileMode.Open);
-            }
-            else
-            {
-                CreateFile(DEFAULT_FILE_PATH);
-            }
+
         }
 
 
@@ -64,36 +53,23 @@ namespace Phonebook
         }
         public void CreateFile(string path)
         {
-            fileStream = File.Create(path);
+            fileStream.CreateFile(path);
         }
         public void SavePhonebookToFile()
         {
-            CreateFile(DEFAULT_FILE_PATH);
-
-            using (StreamWriter streamWriter = new StreamWriter(fileStream))
-            {
-                for (int i = 0; i < callerList.Count; i++)
-                {
-                    Caller caller = callerList.GetAt(i);
-
-                    streamWriter.WriteLine(caller.Record.Name + COLUMN_SEPARATOR + caller.Record.PhoneNumber);
-                }
-            }
+            fileStream.SavePhonebookToFile(callerList);
         }
         public void LoadPhonebookFromFile()
         {
-            callerList.Clear();
-
-            using (StreamReader streamReader = new StreamReader(fileStream))
+            var loadedCallerList = fileStream.LoadPhonebookFromFile();
+            if (loadedCallerList != null)
             {
-                string line = streamReader.ReadLine();
-                string[] columns = line.Split(new string[] { COLUMN_SEPARATOR }, StringSplitOptions.RemoveEmptyEntries);
-
-                callerList.Add(new Caller(new Record(columns[0], columns[1])));
+                callerList = loadedCallerList;
             }
         }
 
 
+        public CallerList CallerList => callerList;
         public int RecordsCount => callerList.Count;
     }
 }
