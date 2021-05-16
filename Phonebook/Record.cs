@@ -9,10 +9,17 @@ namespace Phonebook
     class Record
     {
         private string name;
-        private int phoneNumber;
+        private string phoneNumber;
+
+
+        public Record(string name, string phoneNumber)
+        {
+            this.name = name;
+            this.phoneNumber = phoneNumber;
+        }
 
 
         public string Name { get => name; set => name = value; }
-        public int PhoneNumber { get => phoneNumber;  set => phoneNumber = value; }
+        public string PhoneNumber { get => phoneNumber;  set => phoneNumber = value; }
     }
 }

@@ -28,7 +28,7 @@ namespace Phonebook
                 callers.RemoveAt(removedIndex);
             }
         }
-        public Caller ReadAt(int index)
+        public Caller GetAt(int index)
         {
             return callers[index];
         }
