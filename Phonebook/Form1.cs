@@ -69,9 +69,9 @@ namespace Phonebook
 
                 nameTextBox.Text = record.Name;
                 phoneTextBox.Text = record.PhoneNumber;
-            }
 
-            applyChangesButton.Visible = true;
+                applyChangesButton.Visible = true;
+            }
         }
 
         private void addCallerButton_Click(object sender, EventArgs e)
